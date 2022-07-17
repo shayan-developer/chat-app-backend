@@ -23,12 +23,10 @@ export const registerCtrl = async (req, res, next) => {
     await user.save();
     const token = jwt.sign({ userId: user._id }, process.env.TOKEN_JWT);
 
-    res
-      .status(201)
-      .json({
-        message: "User created",
-        user: { userName: user.userName, email: user.email,id:user._id,token },
-      });
+    res.status(201).json({
+      message: "User created",
+      user: { userName: user.userName, email: user.email, id: user._id, token },
+    });
   } catch (error) {
     next(error);
   }
@@ -54,7 +52,13 @@ export const loginCtrl = async (req, res, next) => {
     if (matchedPsw) {
       res.status(200).json({
         message: "sucessfully logged in ",
-        user: { userName: user.userName, email: user.email ,id:user._id ,token},
+        user: {
+          userName: user.userName,
+          email: user.email,
+          id: user._id,
+          token,
+          avatar: user?.avatar,
+        },
       });
     }
   } catch (error) {

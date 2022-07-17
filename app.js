@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import chatRoutes from "./routes/chat.js";
+import socket from "./utils/socket.js";
 
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -38,3 +39,5 @@ mongoose
 const server = app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
 });
+
+socket(server);
