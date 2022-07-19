@@ -50,6 +50,8 @@ export const loginCtrl = async (req, res, next) => {
     }
     const token = jwt.sign({ userId: user._id }, process.env.TOKEN_JWT);
     if (matchedPsw) {
+      user.status = "Online";
+      await user.save();
       res.status(200).json({
         message: "sucessfully logged in ",
         user: {
